@@ -6,7 +6,7 @@ class SavingsAccount(Account):
         self._minimumBalance = minimumBalance
 
     def withdraw(self, withdrawAmount):
-        if self._currentBalance - withdrawAmount < self._minimumBalance:
+        if self._currentBalance - withdrawAmount < self._minimumBalance and withdrawAmount > 0:
             return False
         else:
             self._currentBalance -= withdrawAmount

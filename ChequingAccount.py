@@ -6,7 +6,7 @@ class ChequingAccount(Account):
         self._overdraftLimit = overdraftLimit
 
     def withdraw(self, withdrawAmount):
-        if withdrawAmount > self._currentBalance + self._overdraftLimit:
+        if withdrawAmount > self._currentBalance + self._overdraftLimit and withdrawAmount > 0:
             return False
         else:
             self._currentBalance -= withdrawAmount

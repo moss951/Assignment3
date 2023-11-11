@@ -24,8 +24,11 @@ class Account:
         self._rateOfInterest = newRate
 
     def deposit(self, depositAmount):
-        self._currentBalance += depositAmount
-        return True
+        if depositAmount > 0:
+            self._currentBalance += depositAmount
+            return True
+        else:
+            return False
     
     def withdraw(self, withdrawAmount):
         self._currentBalance -= withdrawAmount
