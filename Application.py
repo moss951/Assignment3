@@ -1,6 +1,28 @@
 from Bank import Bank
 
 class Application:
+    def getInputAsInt(self, userInput):
+        try:
+            return int(userInput)
+        except:
+            print('Invalid input. Enter an integer.')
+            return False
+        
+    def getInputAsFloat(self, userInput):
+        try:
+            return float(userInput)
+        except:
+            print('Invalid input. Enter a float.')
+            return False
+
+    def getAccountNumbersString(self, bank):
+        accountNumbersString = ''
+
+        for a in bank._accounts:
+            accountNumbersString += str(a.getAccountNumber()) + ' '
+
+        return accountNumbersString
+
     def run(self, bank):
         self.showMainMenu(bank)
 
@@ -19,26 +41,20 @@ class Application:
 
     def selectAccountMenu(self, bank):
         while True:
-            # print account numbers
-            accountNumbersString = ''
-
-            for a in bank._accounts:
-                accountNumbersString += str(a.getAccountNumber()) + ' '
-
-            print('Account numbers:', accountNumbersString)
+            print('Account numbers:', self.getAccountNumbersString(bank))
 
             # get specified account number
             userInput = input('Select account (enter account number), or enter \'e\' to go back to the main menu. ')
 
             if userInput.lower() == 'e':
                 return
+            
+            accountNumber = self.getInputAsInt(userInput)
 
-            try:
-                accountNumber = int(userInput)
-            except:
-                print('Invalid input. Enter a number.')
+            if not accountNumber:
                 continue
 
+            # get account from account number
             seletedAccount = bank.searchAccount(accountNumber)
 
             if not seletedAccount:
@@ -56,10 +72,9 @@ class Application:
             elif userInput == '2':
                 userInput = input('Enter deposit amount: ')
 
-                try:
-                    depositAmount = float(userInput)
-                except:
-                    print('Invalid input. Enter a number.')
+                depositAmount = self.getInputAsFloat(userInput)
+
+                if not depositAmount:
                     continue
 
                 if not account.deposit(depositAmount):
@@ -69,10 +84,9 @@ class Application:
             elif userInput == '3':
                 userInput = input('Enter withdraw amount: ')
 
-                try:
-                    withdrawAmount = float(userInput)
-                except:
-                    print('Invalid input. Enter a number.')
+                withdrawAmount = self.getInputAsFloat(userInput)
+
+                if not withdrawAmount:
                     continue
 
                 if not account.withdraw(withdrawAmount):
