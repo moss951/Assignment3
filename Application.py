@@ -18,8 +18,15 @@ def showMainMenu(bank):
 
 def selectAccountMenu(bank):
     while True:
-        print('Number of accounts:', len(bank._accounts))
+        # print account numbers
+        accountNumbersString = ''
 
+        for a in bank._accounts:
+            accountNumbersString += str(a.getAccountNumber()) + ' '
+
+        print('Account numbers:', accountNumbersString)
+
+        # get specified account number
         userInput = input('Select account (enter account number), or enter \'e\' to go back to the main menu. ')
 
         if userInput.lower() == 'e':
@@ -28,19 +35,24 @@ def selectAccountMenu(bank):
         try:
             accountNumber = int(userInput)
         except:
-            print('Invalid input. Enter a number from 1 to', len(bank._accounts))
+            print('Invalid input. Enter a number.')
             continue
 
-        if accountNumber < 1 or accountNumber > len(bank._accounts):
-            print('Invalid input. Enter a number from 1 to', len(bank._accounts))
+        # get account index
+        accountIndex = None
+
+        for i in range(len(bank._accounts)):
+            if accountNumber == bank._accounts[i].getAccountNumber():
+                accountIndex = i
+                break
+        
+        if accountIndex is None:
+            print('Invalid input. Enter a valid account number.')
             continue
 
-        showAccountMenu(bank, accountNumber)
-            
+        showAccountMenu(bank, accountIndex)
 
-def showAccountMenu(bank, accountNumber):
-    accountIndex = accountNumber - 1
-
+def showAccountMenu(bank, accountIndex):
     while True:
         userInput = input('Select operation (enter corresponding number). 1: Display balance. 2: Deposit money. 3: Withdraw money. 4: Back to account menu. ')
 
