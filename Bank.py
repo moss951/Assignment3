@@ -13,8 +13,11 @@ class Bank:
             SavingsAccount(3278, 'Jane', 0.3, 7500.0, 200)
         ]
 
-    def openAccount(self):
-        return
+    def openChequingAccount(self, accountNumber, accountName, accountInterest, accountBalance, accountOverdraft):
+        self._accounts.append(ChequingAccount(accountNumber, accountName, accountInterest, accountBalance, accountOverdraft))
+
+    def openSavingsAccount(self, accountNumber, accountName, accountInterest, accountBalance, accountMinBalance):
+        self._accounts.append(SavingsAccount(accountNumber, accountName, accountInterest, accountBalance, accountMinBalance))
     
     def searchAccount(self, accountNumber):
         for a in self._accounts:

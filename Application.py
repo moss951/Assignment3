@@ -33,7 +33,7 @@ class Application:
             if userInput == '1':
                 self.selectAccountMenu(bank)
             elif userInput == '2':
-                bank.openAccount()
+                self.openAccountMenu(bank)
             elif userInput == '3':
                 break
             else:
@@ -62,6 +62,62 @@ class Application:
                 continue
 
             self.showAccountMenu(seletedAccount)
+
+    def openAccountMenu(self, bank):
+        while True:
+            userInput = input('Select account type. 1: Chequing Account. 2: Savings Account. 3: Exit. ')
+
+            if userInput == '3':
+                return
+
+            accountType = self.getInputAsInt(userInput)
+            if not accountType or accountType < 1 or accountType > 2:
+                print('Enter a valid account type.')
+                continue
+
+            while True:
+                accountNumber = self.getInputAsInt(input('Enter account number. '))
+
+                if accountNumber == False:
+                    continue
+                
+                isUniqueNumber = True
+                for a in bank._accounts:
+                    if accountNumber == a._accountNumber:
+                        print('This account number already exists.')
+                        isUniqueNumber = False
+                        break
+
+                if isUniqueNumber:
+                    break
+
+            accountName = input('Enter account name. ')
+
+            while True:
+                accountInterest = self.getInputAsFloat(input('Enter account interest. '))
+                if accountInterest != False:
+                    break
+
+            while True:
+                accountBalance = self.getInputAsFloat(input('Enter account balance. '))
+                if accountBalance != False:
+                    break
+
+            if accountType == 1:
+                while True:
+                    accountOverdraft = self.getInputAsFloat(input('Enter account overdraft limit. '))
+                    if accountOverdraft != False:
+                        break
+
+                bank.openChequingAccount(accountNumber, accountName, accountInterest, accountBalance, accountOverdraft)
+            elif accountType == 2:
+                while True:
+                    accountMinBalance = self.getInputAsFloat(input('Enter account minimum balance. '))
+                    if accountMinBalance != False:
+                        break
+
+                bank.openSavingsAccount(accountNumber, accountName, accountInterest, accountBalance, accountMinBalance)
+
 
     def showAccountMenu(self, account):
         while True:
