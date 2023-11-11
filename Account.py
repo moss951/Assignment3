@@ -23,8 +23,10 @@ class Account:
     def setRateOfInterest(self, newRate):
         self._rateOfInterest = newRate
 
-    def deposit(self):
-        return
+    def deposit(self, depositAmount):
+        self._currentBalance += depositAmount
+        return True
     
-    def withdraw(self):
-        return
+    def withdraw(self, withdrawAmount):
+        self._currentBalance -= withdrawAmount
+        return True

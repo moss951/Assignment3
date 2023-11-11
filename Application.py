@@ -59,9 +59,29 @@ def showAccountMenu(bank, accountIndex):
         if userInput == '1':
             print('Current Balance:', bank._accounts[accountIndex].getCurrentBalance())
         elif userInput == '2':
-            bank._accounts[accountIndex].deposit()
+            userInput = input('Enter deposit amount: ')
+
+            try:
+                depositAmount = float(userInput)
+            except:
+                print('Invalid input. Enter a number.')
+                continue
+
+            bank._accounts[accountIndex].deposit(depositAmount)
+            print('Deposit was successful.')
         elif userInput == '3':
-            bank._accounts[accountIndex].withdraw()
+            userInput = input('Enter withdraw amount: ')
+
+            try:
+                withdrawAmount = float(userInput)
+            except:
+                print('Invalid input. Enter a number.')
+                continue
+
+            if not bank._accounts[accountIndex].withdraw(withdrawAmount):
+                print('Withdraw failed.')
+            else:
+                print('Withdraw was successful.')
         elif userInput == '4':
             return
         else:

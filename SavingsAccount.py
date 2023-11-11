@@ -5,5 +5,9 @@ class SavingsAccount(Account):
         super().__init__(accountNumber, accountHolderName, rateOfInterest, currentBalance)
         self._minimumBalance = minimumBalance
 
-    def withdraw():
-        return
+    def withdraw(self, withdrawAmount):
+        if self._currentBalance - withdrawAmount < self._minimumBalance:
+            return False
+        else:
+            self._currentBalance -= withdrawAmount
+            return True
